@@ -24,16 +24,16 @@
                                     <h3 class="text-center font-weight-light my-4">Login</h3>
                                 </div>
                                 <div class="card-body">
-                                    @if (Session::get('error'))
+                                    @if (session()->has('error'))
                                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                            <strong>{{ Session::get('error') }}</strong>
+                                            <strong>{{ session('error') }}</strong>
                                             <button type="button" class="btn-close" data-bs-dismiss="alert"
                                                 aria-label="Close"></button>
                                         </div>
                                     @endif
-                                    @if (Session::get('success'))
-                                        <div class="alert alert-primary alert-dismissible fade show" role="alert">
-                                            <strong>{{ Session::get('success') }}</strong>
+                                    @if (session()->has('success'))
+                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                            <strong>{{ session('success') }}</strong>
                                             <button type="button" class="btn-close" data-bs-dismiss="alert"
                                                 aria-label="Close"></button>
                                         </div>

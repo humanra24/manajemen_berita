@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\DashboardController;
 
 /*
@@ -25,4 +26,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [AuthController::class, 'destroy'])->name('login.destroy');
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('/berita', BeritaController::class);
+    Route::resource('/kategori', KategoriController::class);
+    Route::resource('/user', UserController::class);
 });
