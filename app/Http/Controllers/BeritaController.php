@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Menu;
+use Ramsey\Uuid\Uuid;
+use App\Models\Berita;
+use App\Models\Kategori;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -16,9 +19,11 @@ class BeritaController extends Controller
     public function index()
     {
         $menu = Menu::orderBy('number', 'asc')->get();
+        $berita = Berita::latest()->with('kategori')->get();
         $data = [
-            'title' => 'Daftar Berita',
-            'menu'  => $menu
+            'title'     => 'Daftar Berita',
+            'menu'      => $menu,
+            'berita'    => $berita
         ];
 
         return view('dashboard.berita.index', compact('data'));
@@ -31,7 +36,15 @@ class BeritaController extends Controller
      */
     public function create()
     {
-        //
+        $menu = Menu::orderBy('number', 'asc')->get();
+        $kategori = Kategori::latest()->get();
+        $data = [
+            'title'     => 'Tambah Berita',
+            'menu'      => $menu,
+            'kategori'  => $kategori
+        ];
+
+        return view('dashboard.berita.create', compact('data'));
     }
 
     /**
@@ -42,7 +55,20 @@ class BeritaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'judul_berita' => 'required|max:100|unique:berita,judul_berita',
+            'kategori' => 'required',
+            'isi_berita' => 'required|max:200',
+        ]);
+
+        Berita::create([
+            'berita_id'     => Uuid::uuid4()->getHex(),
+            'judul_berita'  => $request->judul_berita,
+            'kategori_id'   => $request->kategori,
+            'isi_berita'    => $request->isi_berita
+        ]);
+
+        return redirect()->route('berita.index')->with('success', 'Data berhasil ditambah');
     }
 
     /**
@@ -51,9 +77,16 @@ class BeritaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Berita $beritum)
     {
-        //
+        $menu = Menu::orderBy('number', 'asc')->get();
+        $data = [
+            'title'     => 'Detail Berita',
+            'menu'      => $menu,
+            'berita'      => $beritum,
+        ];
+
+        return view('dashboard.berita.show', compact('data'));
     }
 
     /**
@@ -62,9 +95,18 @@ class BeritaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Berita $beritum)
     {
-        //
+        $menu = Menu::orderBy('number', 'asc')->get();
+        $kategori = Kategori::latest()->get();
+        $data = [
+            'title'         => 'Ubah Berita',
+            'menu'          => $menu,
+            'berita'        => $beritum,
+            'kategori'      => $kategori
+        ];
+
+        return view('dashboard.berita.edit', compact('data'));
     }
 
     /**
@@ -74,9 +116,22 @@ class BeritaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Berita $beritum)
     {
-        //
+        $request->validate([
+            'judul_berita' => 'required|max:100|unique:berita,judul_berita,'. $beritum->berita_id.',berita_id',
+            'kategori' => 'required',
+            'isi_berita' => 'required|max:200',
+        ]);
+
+        $beritum->update([
+            'berita_id'     => Uuid::uuid4()->getHex(),
+            'judul_berita'  => $request->judul_berita,
+            'kategori_id'   => $request->kategori,
+            'isi_berita'    => $request->isi_berita
+        ]);
+
+        return redirect()->route('berita.index')->with('success', 'Data berhasil diubah');
     }
 
     /**
@@ -85,8 +140,9 @@ class BeritaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Berita $beritum)
     {
-        //
+        $beritum->delete($beritum->berita_id);
+        return redirect()->route('berita.index')->with('success', 'Data berhasil dihapus');
     }
 }

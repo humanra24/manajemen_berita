@@ -38,7 +38,7 @@ class UserController extends Controller
     {
         $menu = Menu::orderBy('number', 'asc')->get();
         $data = [
-            'title'     => 'Tambah user',
+            'title'     => 'Tambah User',
             'menu'      => $menu,
         ];
 

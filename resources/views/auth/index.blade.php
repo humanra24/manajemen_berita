@@ -59,18 +59,15 @@
                                             @enderror
                                         </div>
                                         <div class="form-check mb-3">
-                                            <input class="form-check-input" id="inputRememberPassword" type="checkbox" name="remember" />
+                                            <input class="form-check-input" id="inputRememberPassword" type="checkbox"
+                                                name="remember" />
                                             <label class="form-check-label" for="inputRememberPassword">Remember
                                                 Me</label>
                                         </div>
-                                        <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                            <a class="small" href="password.html">Forgot Password?</a>
+                                        <div class="d-grid gap-2 mt-4 mb-0">
                                             <button type="submit" class="btn btn-primary">Login</button>
                                         </div>
                                     </form>
-                                </div>
-                                <div class="card-footer text-center py-3">
-                                    <div class="small"><a href="register.html">Need an account? Sign up!</a></div>
                                 </div>
                             </div>
                         </div>
@@ -82,12 +79,7 @@
             <footer class="py-4 bg-light mt-auto">
                 <div class="container-fluid px-4">
                     <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Copyright &copy; Your Website 2022</div>
-                        <div>
-                            <a href="#">Privacy Policy</a>
-                            &middot;
-                            <a href="#">Terms &amp; Conditions</a>
-                        </div>
+                        <div class="text-muted">Copyright &copy; hurasan.com 2022</div>
                     </div>
                 </div>
             </footer>

@@ -39,7 +39,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'menu_id'       => Uuid::uuid4()->getHex(),
-                'menu_label'    => 'Kategori',
+                'menu_label'    => 'Kategori Berita',
                 'url'           => '/kategori',
                 'number'        => 3
             ],

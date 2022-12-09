@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -19,4 +20,16 @@ class User extends Authenticatable
     protected $casts = [
         'user_id' => 'string'
     ];
+
+    public function getCreatedAtAttribute()
+    {
+        return Carbon::parse($this->attributes['created_at'])
+            ->translatedFormat('H:m:s d-m-Y');
+    }
+
+    public function getUpdatedAtAttribute()
+    {
+        return Carbon::parse($this->attributes['updated_at'])
+            ->translatedFormat('H:m:s d-m-Y');
+    }
 }
