@@ -6,11 +6,11 @@
             <h1 class="mt-4">{{ $data['title'] }}</h1>
             <ol class="breadcrumb mb-4">
                 <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
-                <li class="breadcrumb-item active">Kategori</li>
+                <li class="breadcrumb-item active">User</li>
             </ol>
         </div>
         <div class="col-12 col-md-6 text-md-end">
-            <a class="btn btn-primary" href="{{ route('kategori.create') }}">Tambah Kategori</a>
+            <a class="btn btn-primary" href="{{ route('user.create') }}">Tambah User</a>
         </div>
     </div>
     <div class="row">
@@ -26,29 +26,29 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Kategori</th>
+                            <th>Username</th>
                             <th>Dibuat</th>
                             <th>Diubah</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($data['kategori'] as $kategori)
+                        @forelse ($data['user'] as $user)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $kategori->kategori }}</td>
+                                <td>{{ $user->username }}</td>
                                 </td>
-                                <td>{{ $kategori->created_at }}</td>
+                                <td>{{ $user->created_at }}</td>
                                 </td>
-                                <td>{{ $kategori->updated_at }}</td>
+                                <td>{{ $user->updated_at }}</td>
                                 </td>
                                 <td class="d-flex">
                                     <a class="btn btn-success me-2"
-                                        href="{{ route('kategori.show', ['kategori' => $kategori->kategori_id]) }}">Detail</a>
+                                        href="{{ route('user.show', ['user' => $user->user_id]) }}">Detail</a>
                                     <a class="btn btn-warning me-2"
-                                        href="{{ route('kategori.edit', ['kategori' => $kategori->kategori_id]) }}">Ubah</a>
+                                        href="{{ route('user.edit', ['user' => $user->user_id]) }}">Ubah</a>
                                     <a class="btn btn-danger" href="#" data-bs-toggle="modal"
-                                        data-bs-target="#hapusModal" data-bs-kategori="{{ route('kategori.destroy', ['kategori'=>$kategori->kategori_id]) }}">Hapus</a>
+                                        data-bs-target="#hapusModal" data-bs-user="{{ route('user.destroy', ['user'=>$user->user_id]) }}">Hapus</a>
                                 </td>
                             </tr>
                         @empty
@@ -89,14 +89,14 @@
             // Button that triggered the modal
             const button = event.relatedTarget
             // Extract info from data-bs-* attributes
-            const kategori = button.getAttribute('data-bs-kategori')
+            const user = button.getAttribute('data-bs-user')
             // If necessary, you could initiate an AJAX request here
             // and then do the updating in a callback.
             //
             // Update the modal's content.
             const modalBodyInput = hapusModal.querySelector('form')
 
-            modalBodyInput.setAttribute('action', kategori)
+            modalBodyInput.setAttribute('action', user)
         })
     </script>
 @endpush
